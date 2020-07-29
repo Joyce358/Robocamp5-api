@@ -1,0 +1,14 @@
+{
+    "title": "Teste",
+    "category": "Super Nintendo",
+    "price": "",
+    "description": "Um jogo muito divertido.",
+    "producers": [
+        "Nintendo", 
+        "Rare"
+    ],
+    "cover": "donkey-kong2.jpg"
+
+
+
+}
