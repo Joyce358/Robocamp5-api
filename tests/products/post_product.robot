@@ -2,7 +2,7 @@
 Documentation       POST /products
 ...                 Testes do cadastro de produtos consumindo a API
 
-Resource            .. / ../resources/services.robot
+Resource            ../../resources/services.robot
 
 Suite Setup         Auth Token      ${user_email}    ${user_pass}     
 

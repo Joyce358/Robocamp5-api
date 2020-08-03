@@ -1,19 +1,21 @@
 ***Settings***
 Documentation       POST /auth
-...                 Testes do serviço de autorização
+...                 Testes do serviço de autorização (Authentication Token)
 
-Resource            .. / ../resources/services.robot   
+Resource            ../../resources/services.robot   
 
 *** Test Cases ***
 Successfuly Login
+    [tags]      todo
     ${payload}=      ???
 
     ${resp}=         Post Token     ${payload}
     Status Should Be        200     ${resp}
 
 Incorrect Password
+    [tags]      todo
     ${payload}=      ???
 
-    ${resp}=         Post Product   ${payload}      ${token}      ${empty}
+    ${resp}=         Post Token   ${payload}
 
     Status Should Be        401     ${resp}
