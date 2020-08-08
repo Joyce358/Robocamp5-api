@@ -13,9 +13,19 @@ ${user_email}        papito@ninjapixel.com
 ${user_pass}         pwd123
 
 ***Keywords***
+# hooks
 Set Suite Var Auth Token
-    [Arguments]       ${email}        ${password}
+    [Arguments]      ${email}        ${password}
 
+    ${resp}          Post Token      ${email}        ${password}
+    ${token}         Convert To String      JWT ${resp.json()['token']}
+
+    Set Suite Variable       ${token}
+
+# steps
+Post Token
+    [Arguments]     ${email}        ${password}
+    
     Create Session    pixel        ${base_url} 
 
     &{headers}=      Create Dictionary   Content-Type=application/json
@@ -23,9 +33,7 @@ Set Suite Var Auth Token
 
     ${resp}=         Post Request        pixel       /auth       data=${payload}       headers=${headers}      
 
-    ${token}         Convert To String      JWT ${resp.json()['token']}
-
-    Set Suite Variable       ${token}
+    [return]          ${resp}
 
 Post Product
     [Arguments]     ${payload}    ${remove}
@@ -38,6 +46,18 @@ Post Product
     &{headers}=       Create Dictionary     Authorization=${token}        Content-Type=application/json
 
     ${resp}=          Post Request      pixel       /products       data=${payload}     headers=${headers}
+
+    [return]          ${resp}
+
+Put Product
+    [Arguments]     ${product_id}    ${payload}
+
+    Remove Product By Title         ${payload['title']}
+
+    Create Session    pixel                 ${base_url}
+    &{headers}=       Create Dictionary     Authorization=${token}        Content-Type=application/json
+
+    ${resp}=          Put Request      pixel       /products/${product_id}       data=${payload}     headers=${headers}
 
     [return]          ${resp}
 
