@@ -8,6 +8,7 @@ Suite Setup         Set Suite Var Auth Token      ${user_email}    ${user_pass}
 
 *** Test Cases ***
 Update a Product
+    # Dado que eu tenho um produto
     ${payload_before}=      Get Json       update_before.json
 
     ${resp}=         Post Product   ${payload_before}      before_remove
@@ -15,11 +16,13 @@ Update a Product
 
     ${product_id}       Convert To String       ${resp.json()['id']}
 
+    # Quando eu altero esse produto
     ${payload_after}=      Get Json       update_after.json
 
     ${resp}=            Put Product     ${product_id}   ${payload_after}
      Status Should Be        204        ${resp}
 
+    # Então esse item deve conter um novo nome
     ${resp}=            Get Product     ${product_id}
-    
+
     Should Be Equal         ${resp.json()['title']}     ${payload_after['title']}
