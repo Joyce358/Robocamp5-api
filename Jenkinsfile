@@ -22,5 +22,11 @@ pipeline {
                 }
             }
         }
+        stage('Aceite do usuário') {
+            steps {
+                echo 'Simulando a aprovação do PO'
+                input(message: 'Voce aprova essa versão?', ok: 'Sim :)')
+            }
+        }
     }
 }
